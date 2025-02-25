@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/gym_exercises/{exercise}/edit', [GymExerciseController::class, 'edit'])->name('gym_exercises.edit');
     Route::patch('/gym_exercises/{exercise}', [GymExerciseController::class, 'update'])->name('gym_exercises.update');
     Route::patch('/gym_exercises/{exercise}/toggle', [GymExerciseController::class, 'toggle'])->name('gym_exercises.toggle');
+    Route::put('/gym_exercises/{exercise}', [GymExerciseController::class, 'update'])->name('gym_exercises.update');
     Route::delete('/gym_exercises/{exercise}', [GymExerciseController::class, 'destroy'])->name('gym_exercises.destroy');
     Route::get('/dashboard', [GymExerciseController::class, 'index'])->name('dashboard');
     Route::patch('/gym_exercises/{id}/toggle', [GymExerciseController::class, 'toggle'])->name('gym_exercises.toggle');

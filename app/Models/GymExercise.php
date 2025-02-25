@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class GymExercise extends Model
 {
-    protected $fillable = ['name', 'sets', 'reps', 'completed'];
+    protected $fillable = ['name', 'sets', 'reps', 'user_id'];
 }
 

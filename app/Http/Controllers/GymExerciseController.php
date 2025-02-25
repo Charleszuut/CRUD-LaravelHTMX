@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\GymExercise;
 use Illuminate\Http\Request;
 
 class GymExerciseController extends Controller
 {
     public function index()
-{
-    $exercises = GymExercise::all();
-    return view('dashboard', compact('exercises'));
-}
+    {
+        $exercises = GymExercise::where('user_id', Auth::id())->get(); // ✅ Filter by user
+        return view('gym_exercises.index', compact('exercises'));
+    }
 
     public function create()
     {
@@ -21,13 +22,19 @@ class GymExerciseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'sets' => 'required|integer',
-            'reps' => 'required|integer'
+            'reps' => 'required|integer',
         ]);
-
-        GymExercise::create($request->all());
-        return redirect()->route('gym_exercises.index');
+    
+        GymExercise::create([
+            'name' => $request->name,
+            'sets' => $request->sets,
+            'reps' => $request->reps,
+            'user_id' => Auth::id(),
+        ]);
+    
+        return redirect()->route('gym_exercises.index')->with('success', 'Exercise added successfully.');
     }
 
     public function edit(GymExercise $exercise)
