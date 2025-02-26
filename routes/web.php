@@ -17,7 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/update', [ProfileController::class, 'edit'])->name('profile.update');
     Route::get('/gym_exercises', [GymExerciseController::class, 'index'])->name('gym_exercises.index');
     Route::get('/gym_exercises/create', [GymExerciseController::class, 'create'])->name('gym_exercises.create'); // Fix for the error
     Route::post('/gym_exercises', [GymExerciseController::class, 'store'])->name('gym_exercises.store');
@@ -28,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/gym_exercises/{exercise}', [GymExerciseController::class, 'destroy'])->name('gym_exercises.destroy');
     Route::get('/dashboard', [GymExerciseController::class, 'index'])->name('dashboard');
     Route::patch('/gym_exercises/{id}/toggle', [GymExerciseController::class, 'toggle'])->name('gym_exercises.toggle');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+    
 
 });
 

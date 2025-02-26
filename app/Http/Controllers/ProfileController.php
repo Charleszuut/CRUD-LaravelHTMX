@@ -14,29 +14,38 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        // Assuming you have a User model and the user is authenticated
+        $user = auth()->user();
+        return view('profile.edit', compact('user'));
     }
+    
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // Validate the incoming request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+        ]);
+    
+        // Get the authenticated user
+        $user = auth()->user();
+    
+        // Update the user's information
+        $user->name = $request->name;
+        $user->email = $request->email;
+    
+        // Save the user
+        $user->save();
+    
+        // Redirect back with a success message
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
     }
-
     /**
      * Delete the user's account.
      */
