@@ -22,8 +22,11 @@
                         <td class="border border-gray-300 px-4 py-2">{{ $exercise->reps }}</td>
                         <td class="border border-gray-300 px-4 py-2">
                             <a href="{{ route('gym_exercises.edit', $exercise->id) }}" 
-                               class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Edit</a>
-                            <form action="{{ route('gym_exercises.toggle', $exercise->id) }}" method="POST" class="inline-block">
+                                hx-get="{{ route('gym_exercises.edit', $exercise->id) }}" 
+                                hx-target="#exercise-form" 
+                                hx-swap="innerHTML"
+                               class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600" hx-get="{{ route('gym_exercises.edit', $exercise->id) }}" hx-target="#exercise-form" hx-swap="innerHTML">Edit</a>
+                            <form action="{{ route('gym_exercises.toggle', $exercise->id) }}" method="POST" class="inline-block" hx-post="{{ route('gym_exercises.toggle', $exercise->id) }}" hx-target="this.closest('tr')" hx-swap="outerHTML">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Mark as Incomplete</button>
@@ -54,13 +57,16 @@
                         <td class="border border-gray-300 px-4 py-2">{{ $exercise->reps }}</td>
                         <td class="border border-gray-300 px-4 py-2">
                             <a href="{{ route('gym_exercises.edit', $exercise->id) }}" 
-                               class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Edit</a>
-                            <form action="{{ route('gym_exercises.toggle', $exercise->id) }}" method="POST" class="inline-block">
+    hx-get="{{ route('gym_exercises.edit', $exercise->id) }}" 
+    hx-target="#exercise-form" 
+    hx-swap="innerHTML"
+                               class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600" hx-get="{{ route('gym_exercises.edit', $exercise->id) }}" hx-target="#exercise-form" hx-swap="innerHTML">Edit</a>
+                            <form action="{{ route('gym_exercises.toggle', $exercise->id) }}" method="POST" class="inline-block" hx-post="{{ route('gym_exercises.toggle', $exercise->id) }}" hx-target="this.closest('tr')" hx-swap="outerHTML">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Mark as Complete</button>
                             </form>
-                            <form action="{{ route('gym_exercises.destroy', $exercise->id) }}" method="POST" class="inline-block">
+                            <form action="{{ route('gym_exercises.destroy', $exercise->id) }}" method="POST" class="inline-block" hx-post="{{ route('gym_exercises.destroy', $exercise->id) }}" hx-target="this.closest('tr')" hx-swap="outerHTML">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</button>
@@ -73,6 +79,6 @@
     </div>
 
     <div class="mt-6">
-        <a href="{{ route('gym_exercises.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add New Exercise</a>
+        <a href="{{ route('gym_exercises.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" hx-get="{{ route('gym_exercises.create') }}" hx-target="#exercise-form" hx-swap="innerHTML">Add New Exercise</a>
     </div>
 @endsection

@@ -13,6 +13,8 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Scripts -->
+        <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">

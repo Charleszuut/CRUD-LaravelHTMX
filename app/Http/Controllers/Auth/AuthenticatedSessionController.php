@@ -26,6 +26,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        \Log::info('User authenticated: ' . $request->user()->email);
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));
